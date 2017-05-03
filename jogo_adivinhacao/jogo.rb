@@ -1,8 +1,7 @@
 def apresentacao
  puts "Jogo da adivinhação\n"
  puts "Qual é o seu nome?" 
- nome = gets
- nome = nome.chomp
+ nome = gets.strip
  puts "Olá, #{nome}. Seja bem-vindo!\n\n"
 end
 
@@ -15,8 +14,8 @@ def jogar(tentativas, numero_secreto)
  for tentativa in 1..tentativas do
    puts "Tentativa #{tentativa}"
    puts "Entre com o número: " 
-   chute = gets
-   puts "Ok..você chutou #{chute} #{numero_secreto} "
+   chute = gets.strip
+   puts "Ok..você chutou #{chute} "
    acertou = numero_secreto == chute.to_i
 
    if acertou
@@ -32,7 +31,7 @@ end
 
 def jogar_novamente?
  puts "Deseja jogar novamente?"
- quer_jogar = gets.chomp.upcase
+ quer_jogar = gets.strip.upcase
  quer_jogar ==  "S" ? true : false
 end
 
