@@ -1,5 +1,7 @@
 def apresentacao
- puts "Jogo da adivinhação\n"
+ puts "*************************\n"
+ puts "***Jogo da adivinhação***\n"
+ puts "*************************\n"
  puts "Qual é o seu nome?" 
  nome = gets.strip
  puts "Olá, #{nome}. Seja bem-vindo!\n\n"
@@ -11,11 +13,24 @@ def sortear_numero_secreto(limite)
 end
 
 def jogar(tentativas, numero_secreto)
+ numeros_chutados = []
  for tentativa in 1..tentativas do
-   puts "Tentativa #{tentativa}"
-   puts "Entre com o número: " 
+   puts "Tentativa #{tentativa} de #{tentativas}"
+   
+   if tentativa == 1
+    puts "Números chutados até o momento: nenhum\n"
+   else
+    for chute in 1..numeros_chutados.size
+     lista_chutes = "#{numeros_chutados[chute - 1]}" if chute == 1
+     lista_chutes = lista_chutes + ", #{numeros_chutados[chute - 1]}" if chute > 1
+    end
+    puts "Números chutados até o momento: #{lista_chutes}.\n"
+   end
+
+   puts "Entre com um número: " 
    chute = gets.strip
-   puts "Ok..você chutou #{chute} "
+   numeros_chutados << chute
+   puts "Ok..vamos ver.."
    acertou = numero_secreto == chute.to_i
 
    if acertou
