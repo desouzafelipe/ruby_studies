@@ -21,8 +21,7 @@ def jogar(tentativas, numero_secreto)
     puts "Números chutados até o momento: nenhum\n"
    else
     for chute in 1..numeros_chutados.size
-     lista_chutes = "#{numeros_chutados[chute - 1]}" if chute == 1
-     lista_chutes = lista_chutes + ", #{numeros_chutados[chute - 1]}" if chute > 1
+     lista_chutes = "Números chutados até o momento: #{numeros_chutados.to_s}"
     end
     puts "Números chutados até o momento: #{lista_chutes}.\n"
    end
@@ -61,9 +60,9 @@ end
 def gameflow
  ganhou = false
  numero_secreto = 0
- apresentacao
+apresentacao
  loop do
-   ganhou = jogar(lives = 3, numero_secreto = sortear_numero_secreto(200))
+   ganhou = jogar(lives = 5, numero_secreto = sortear_numero_secreto(200))
    querer_jogar = jogar_novamente?
    break if !querer_jogar
  end
