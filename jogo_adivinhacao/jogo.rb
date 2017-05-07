@@ -13,16 +13,19 @@ def sortear_numero_secreto(limite)
 end
 
 def jogar(tentativas, numero_secreto)
- numeros_chutados = []
+ numeros_chutados = [] 
+ pontos = 1000
  for tentativa in 1..tentativas do
    puts "Tentativa #{tentativa} de #{tentativas}"
    
    if tentativa == 1
+    puts "Pontos: #{pontos}"
     puts "Números chutados até o momento: nenhum\n"
    else
     for chute in 1..numeros_chutados.size
      lista_chutes = "Números chutados até o momento: #{numeros_chutados.to_s}"
     end
+    puts "Pontos: #{pontos}"
     puts "Números chutados até o momento: #{lista_chutes}.\n"
    end
 
@@ -33,11 +36,14 @@ def jogar(tentativas, numero_secreto)
    acertou = numero_secreto == chute.to_i
 
    if acertou
-    puts "Acertou!"
+    pontos += chute.to_i
+    puts "Acertou! O número era #{numero_secreto}!\n"
+    puts "Pontos: #{pontos}"
     break
    else
     puts "Errou, o número secreto é maior que #{chute}" if numero_secreto > chute.to_i
     puts "Errou, o número secreto é menor que #{chute}" if numero_secreto < chute.to_i
+    pontos -= chute.to_i.abs
    end
  end
  acertou
