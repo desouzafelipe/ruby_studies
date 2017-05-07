@@ -60,7 +60,7 @@ def jogar(total_tentativas, palavra)
       end
      end
     else
-     acertou = chute == palavra
+     acertou = chute.eql?(palavra)
      if acertou
       puts "Parabéns! Você acertou a palavra '#{palavra.upcase}' de uma só vez!"
       pontos += 100 * palavra.size
