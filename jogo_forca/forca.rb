@@ -1,26 +1,11 @@
-def apresentacao
- puts "Jogo da Forca\n"
- puts "Qual é o seu nome?" 
- nome = gets.strip
- puts "\n\n***Olá, #{nome}. Seja bem-vindo!***\n\n"
-end
+require_relative 'ui'
 
 def sortear_palavra
- puts "\nSorteando palavra..."
+ mensagem_sorteando_palavra
  palavras = ["programador", "computador", "advogado", "carro", "chuva"]
- palavra_sorteada = palavras[rand(palavras.size)]
- puts "Foi escolhida uma palavra de #{palavra_sorteada.size} letras."
- palavra_sorteada.downcase
-end
-
-def pede_um_chute(lista_chutes, erros, total_tentativas)
- puts "\nErros até agora: #{erros} de #{total_tentativas}."
- puts "Chutes até agora: nenhum.\n\n" if lista_chutes.empty?
- puts "Chutes até agora: #{lista_chutes}\n\n" if !lista_chutes.empty?
- puts "Escolha uma letra ou palavra: "
- chute = gets.strip
- puts "Ok, você chutou '#{chute}'"
- chute
+ palavra_sorteada = palavras[rand(palavras.size)].downcase
+ mensagem_palavra_sorteada(palavra_sorteada.size)
+ palavra_sorteada
 end
 
 def jogar(total_tentativas, palavra)
@@ -30,9 +15,10 @@ def jogar(total_tentativas, palavra)
  erros = 0 
 
  while erros < total_tentativas
-    chute = pede_um_chute(lista_chutes, erros, total_tentativas)
+    mensagem_status_jogo(lista_chutes, erros, total_tentativas, montar_desenho_forca(palavra, lista_chutes))
+    chute = pede_um_chute
     if lista_chutes.include? chute
-     puts "Você já chutou '#{chute}'. Faça outro chute.\n"
+     mensagem_chute_repetido(chute)
      next
     end
 
@@ -43,57 +29,46 @@ def jogar(total_tentativas, palavra)
      total_encontrado = palavra.count(chute[0])
      letras_certas += total_encontrado
      if total_encontrado == 0
-      puts "Letra não encontrada dentro da palavra com #{palavra.size} letras."
+      mensagem_letra_nao_encontrada(palavra.size)
       pontos -= 15
       erros += 1
      else
-      puts "Letra encontrada #{total_encontrado} vez dentro uma palavra de #{palavra.size} letras." if total_encontrado == 1
-      puts "Letra encontrada #{total_encontrado} vezes dentro de uma palavra de #{palavra.size} letras." if total_encontrado > 1
+      mensagem_letra_encontrada(total_encontrado, palavra.size)
       pontos += 50 * total_encontrado
-
       acertou = letras_certas == palavra.size
       if acertou
-       puts "Parabéns! Acertou todas as letras da palavra '#{palavra.upcase}': #{lista_chutes}"
+       mensagem_acertou_todas_letras(palavra, lista_chutes) 
        pontos += 50 * palavra.size
-       puts "Seus pontos: #{pontos}"
+       mostra_pontos(pontos)
+       mensagem_status_jogo(lista_chutes, erros, total_tentativas, montar_desenho_forca(palavra, lista_chutes))
        break
       end
      end
     else
      acertou = chute.eql?(palavra)
      if acertou
-      puts "Parabéns! Você acertou a palavra '#{palavra.upcase}' de uma só vez!"
+      mensagem_acertou_palavra(palavra)
       pontos += 100 * palavra.size
-      puts "Seus pontos: #{pontos}"
+      mostra_pontos(pontos)
+      mensagem_status_jogo(lista_chutes, erros, total_tentativas, montar_desenho_forca(palavra, lista_chutes))
       break
      else
-      puts "Errou..Perdeu todos os pontos por ter chutado uma palavra."
       pontos = 0
       erros += 1
      end
     end
-   puts "\nPontos: #{pontos}"
-   puts "Faltam #{palavra.size - letras_certas} letras para acertar a palavra!" if (palavra.size - letras_certas) > 1
-   puts "Falta **UMA** letra para acertar a palavra" if (palavra.size - letras_certas) == 1
+   mostra_pontos(pontos)
   end
   acertou   
 end
 
 def jogar_novamente?
- puts "Deseja jogar novamente?"
- quer_jogar = gets.strip.upcase
- quer_jogar ==  "S" ? true : false
-end
-
-def terminar(ganhou)
-  puts "Perdeu esta partida, mas não desista. Até a próxima." if !ganhou
-  puts "Parabéns, boa partida. Até a próxima." if ganhou
+ mensagem_jogar_novamente ==  "S" ? true : false
 end
 
 def gameflow
  ganhou = false
  apresentacao
- 
  loop do
    ganhou = jogar(tentativas = 5, sortear_palavra)
    querer_jogar = jogar_novamente?
@@ -101,5 +76,3 @@ def gameflow
  end
  terminar(ganhou)
 end
-
-gameflow
