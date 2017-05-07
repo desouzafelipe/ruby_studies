@@ -7,9 +7,27 @@ def apresentacao
  puts "Olá, #{nome}. Seja bem-vindo!\n\n"
 end
 
-def sortear_numero_secreto(limite)
- puts "Escolhendo um número entre 0 e 200...\n\n"
- rand(limite)
+def escolher_dificuldade
+ puts "Escolha uma dificuldade (1 = mais fácil .. 5 = mais difícil): "
+ nivel_dificuldade = gets.to_i
+end
+
+def sortear_numero_secreto(nivel_dificuldade)
+ case nivel_dificuldade
+ when 1
+ 	maximo = 20
+ when 2
+	maximo = 40
+ when 3
+	maximo = 100
+ when 4
+	maximo = 150
+ else
+	maximo = 200
+ end
+ 
+ puts "Escolhendo um número entre 0 e #{maximo}...\n\n"
+ rand(maximo)
 end
 
 def jogar(tentativas, numero_secreto)
@@ -66,9 +84,10 @@ end
 def gameflow
  ganhou = false
  numero_secreto = 0
-apresentacao
+ apresentacao
  loop do
-   ganhou = jogar(lives = 5, numero_secreto = sortear_numero_secreto(200))
+   nivel_dificuldade = escolher_dificuldade
+   ganhou = jogar(lives = 3, sortear_numero_secreto(nivel_dificuldade))
    querer_jogar = jogar_novamente?
    break if !querer_jogar
  end
