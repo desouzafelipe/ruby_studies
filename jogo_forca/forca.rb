@@ -2,7 +2,7 @@ require_relative 'ui'
 
 def sortear_palavra
  mensagem_sorteando_palavra
- palavras = ["programador", "computador", "advogado", "carro", "chuva"]
+ palavras = File.read("palavras.txt").split("\n")
  palavra_sorteada = palavras[rand(palavras.size)].downcase
  mensagem_palavra_sorteada(palavra_sorteada.size)
  palavra_sorteada
