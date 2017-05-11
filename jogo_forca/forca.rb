@@ -8,7 +8,7 @@ def sortear_palavra
  palavra_sorteada
 end
 
-def jogar(total_tentativas, palavra)
+def jogar(total_tentativas, palavra, nome)
  lista_chutes = [] 
  letras_certas = 0
  pontos = 0
@@ -59,7 +59,12 @@ def jogar(total_tentativas, palavra)
     end
    mostra_pontos(pontos)
   end
+  salva_rank(nome, pontos)
   acertou   
+end
+
+def salva_rank(nome, pontos)
+ File.write("rank.txt", "#{nome}\n#{pontos}") 
 end
 
 def jogar_novamente?
@@ -68,9 +73,9 @@ end
 
 def gameflow
  ganhou = false
- apresentacao
+ nome = apresentacao
  loop do
-   ganhou = jogar(tentativas = 5, sortear_palavra)
+   ganhou = jogar(tentativas = 5, sortear_palavra, nome)
    querer_jogar = jogar_novamente?
    break if !querer_jogar
  end

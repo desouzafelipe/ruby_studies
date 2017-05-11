@@ -3,6 +3,7 @@ def apresentacao
  puts "Qual é o seu nome?" 
  nome = gets.strip
  puts "\n\n***Olá, #{nome}. Seja bem-vindo!***\n\n"
+ nome
 end
 
 def mensagem_jogar_novamente
