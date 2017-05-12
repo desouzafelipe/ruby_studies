@@ -13,8 +13,10 @@ def jogar(total_tentativas, palavra, nome)
  letras_certas = 0
  pontos = 0
  erros = 0 
+ desenha_forca(erros)
 
  while erros < total_tentativas
+
     mensagem_status_jogo(lista_chutes, erros, total_tentativas, montar_desenho_forca(palavra, lista_chutes))
     chute = pede_um_chute
     if lista_chutes.include? chute
@@ -57,6 +59,7 @@ def jogar(total_tentativas, palavra, nome)
       erros += 1
      end
     end
+   desenha_forca(erros)
    mostra_pontos(pontos)
   end
   salva_rank(nome, pontos)

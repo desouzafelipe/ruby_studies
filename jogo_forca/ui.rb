@@ -1,5 +1,14 @@
 def apresentacao
- puts "Jogo da Forca\n"
+ puts "        _                         _         ______                 "
+ puts "      | |                       | |       |  ____|                 "
+ puts "      | | ___   __ _  ___     __| | __ _  | |__ ___  _ __ ___ __ _ "
+ puts "  _   | |/ _ \ / _` |/ _ \   / _` |/ _` | |  __/ _ \| '__/ __/ _` |"
+ puts " | |__| | (_) | (_| | (_) | | (_| | (_| | | | | (_) | | | (_| (_| |"
+ puts "  \____/ \___/ \__, |\___/   \__,_|\__,_| |_|  \___/|_|  \___\__,_|"
+ puts "                __/ |                                              "
+ puts "               |___/                                               "
+ puts "																	  "
+ puts "PS: tirar homens da forca é realmente um jogo? ..Quem dera Tiradentes ter podido jogar isso!"
  puts "Qual é o seu nome?" 
  nome = gets.strip
  puts "\n\n***Olá, #{nome}. Seja bem-vindo!***\n\n"
@@ -7,22 +16,22 @@ def apresentacao
 end
 
 def mensagem_campeao_atual(dados)
- puts "O campeão atual é #{dados[0]}, com #{dados[1]} pontos.\n"
+ puts "O campeão atual em salvar homens da forca é #{dados[0]}, com #{dados[1]} pontos."
+ puts "Teria um trabalhão na França de 1789..\n"
 end
 
 def mensagem_novo_recordista
  puts "Parabéns, você bateu o recorde atual! "
 end
 
-
 def mensagem_jogar_novamente
- puts "Deseja jogar novamente?"
+ puts "Quer tentar tirar outro homem da forca?"
  quer_jogar = gets.strip.upcase
 end
 
 def terminar(ganhou)
- puts "Perdeu esta partida, mas não desista. Até a próxima." if !ganhou
- puts "Parabéns, boa partida. Até a próxima." if ganhou
+ puts "Um homem foi enforcado. Talvez ele tenha merecido, mas nunca desista de fazer o bem." if !ganhou
+ puts "Parabéns, você tirou um homem da forca. Que ele pague em vida pelo que fez. Até a próxima ;-)" if ganhou
 end
 
 def mensagem_sorteando_palavra
@@ -62,6 +71,7 @@ end
 
 def mensagem_acertou_todas_letras(palavra, lista_chutes) 
  puts "Parabéns! Acertou todas as letras da palavra '#{palavra.upcase}': #{lista_chutes}"
+ puts "..e de quebra tirou um condenado da forca. Sorte a dele!"
 end
 
 def mostra_pontos(pontos)
@@ -70,10 +80,12 @@ end
 
 def mensagem_acertou_palavra(palavra)
  puts "Parabéns! Você acertou a palavra '#{palavra.upcase}' de uma só vez!"
+ puts "..e de quebra tirou um condenado da forca. Sorte a dele!"
 end
 
 def mensagem_errou_palavra
  puts "Errou..Perdeu todos os pontos por ter chutado uma palavra."
+ puts "..segure as pontas aí."
 end
 
 def montar_desenho_forca(palavra_sorteada, lista_chutes)
@@ -87,3 +99,34 @@ def montar_desenho_forca(palavra_sorteada, lista_chutes)
  end
  mascara
 end
+
+def desenha_forca(erros)
+ head = ""
+ body = ""
+ legs = ""
+
+ if erros == 1
+  head = " @"
+ end
+
+ if erros > 1 and erros <= 4 
+  head = " @"
+  body = "\\|/"
+ end
+
+ if erros > 4
+  head = " X"
+  body = "/|\\"
+  legs = "/ \\"
+ end
+
+ puts " _________     \n"
+ puts "|/        |    \n"
+ puts "|        #{head}    \n"
+ puts "|        #{body}  \n"
+ puts "|        #{legs}  \n"
+ puts "|              \n"
+ puts "|              \n"
+
+end
+ 
