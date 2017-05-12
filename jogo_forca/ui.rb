@@ -6,6 +6,15 @@ def apresentacao
  nome
 end
 
+def mensagem_campeao_atual(dados)
+ puts "O campeão atual é #{dados[0]}, com #{dados[1]} pontos.\n"
+end
+
+def mensagem_novo_recordista
+ puts "Parabéns, você bateu o recorde atual! "
+end
+
+
 def mensagem_jogar_novamente
  puts "Deseja jogar novamente?"
  quer_jogar = gets.strip.upcase
@@ -56,7 +65,7 @@ def mensagem_acertou_todas_letras(palavra, lista_chutes)
 end
 
 def mostra_pontos(pontos)
-	puts "Seus pontos: #{pontos}"
+ puts "Seus pontos: #{pontos}"
 end
 
 def mensagem_acertou_palavra(palavra)

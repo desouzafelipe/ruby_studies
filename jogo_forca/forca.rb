@@ -64,7 +64,15 @@ def jogar(total_tentativas, palavra, nome)
 end
 
 def salva_rank(nome, pontos)
- File.write("rank.txt", "#{nome}\n#{pontos}") 
+ recorde_atual = ler_rank
+ if pontos > recorde_atual[1].to_i
+  File.write("rank.txt", "#{nome}\n#{pontos}") 
+  mensagem_novo_recordista
+ end
+end
+
+def ler_rank
+ conteudo = File.read("rank.txt").split("\n")  
 end
 
 def jogar_novamente?
@@ -74,6 +82,7 @@ end
 def gameflow
  ganhou = false
  nome = apresentacao
+ mensagem_campeao_atual(ler_rank)
  loop do
    ganhou = jogar(tentativas = 5, sortear_palavra, nome)
    querer_jogar = jogar_novamente?
