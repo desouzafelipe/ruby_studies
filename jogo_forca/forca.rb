@@ -1,4 +1,5 @@
 require_relative 'ui'
+require_relative 'rank'
 
 def sortear_palavra
  if File.file?("palavras.txt")
