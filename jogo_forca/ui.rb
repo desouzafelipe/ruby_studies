@@ -88,6 +88,10 @@ def mensagem_errou_palavra
  puts "..segure as pontas aí."
 end
 
+def mensagem_arquivo_palavras_nao_encontrado
+ puts "Arquivo <palavras.txt> não encontrado. Tchau!"
+end
+
 def montar_desenho_forca(palavra_sorteada, lista_chutes)
  mascara = ""
  for letra in palavra_sorteada.chars
@@ -109,9 +113,15 @@ def desenha_forca(erros)
   head = " @"
  end
 
- if erros > 1 and erros <= 4 
+ if erros > 1 and erros < 4 
   head = " @"
   body = "\\|/"
+ end
+
+ if erros == 4
+  head = " @"
+  body = "\\|/"
+  legs = "/ \\"
  end
 
  if erros > 4

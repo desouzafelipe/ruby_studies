@@ -1,10 +1,13 @@
 require_relative 'ui'
 
 def sortear_palavra
- mensagem_sorteando_palavra
- palavras = File.read("palavras.txt").split("\n")
- palavra_sorteada = palavras[rand(palavras.size)].downcase
- mensagem_palavra_sorteada(palavra_sorteada.size)
+ if File.file?("palavras.txt")
+  palavras = File.read("palavras.txt").split("\n")
+  palavra_sorteada = palavras[rand(palavras.size)].downcase
+  mensagem_palavra_sorteada(palavra_sorteada.size)
+ else
+  palavra_sorteada = nil
+ end
  palavra_sorteada
 end
 
@@ -75,7 +78,13 @@ def salva_rank(nome, pontos)
 end
 
 def ler_rank
- conteudo = File.read("rank.txt").split("\n")  
+ if File.file?("rank.txt") 
+  conteudo = File.read("rank.txt").split("\n")
+ else
+  File.write("rank.txt", "Zé Ninguém\n0")
+  conteudo = ler_rank
+ end
+ conteudo 
 end
 
 def jogar_novamente?
@@ -87,7 +96,12 @@ def gameflow
  nome = apresentacao
  mensagem_campeao_atual(ler_rank)
  loop do
-   ganhou = jogar(tentativas = 5, sortear_palavra, nome)
+   palavra = sortear_palavra
+   if palavra == nil
+    mensagem_arquivo_palavras_nao_encontrado
+    break
+   end
+   ganhou = jogar(tentativas = 5, palavra, nome)
    querer_jogar = jogar_novamente?
    break if !querer_jogar
  end
